@@ -2,182 +2,203 @@
 <html>
 
 <head>
-  <title>Números Primos</title>
-  <meta charset="UTF-8">
-  <meta name=author content="Lucas Lopes">
-  <link rel=icon href="_img/icon.png" />
+    <title>Números Primos</title>
+    <meta charset="UTF-8">
+    <meta name=author content="Lucas Lopes">
+    <link rel=icon href="_img/icon.png">
+    <style type=text/css>
+        * {
+            color: black;
+            font-family: Courier New;
+            text-align: center;
+            font-weight: normal; }
 
-  <style type=text/css>
-    * {
-        color: black;
-        font-family: Courier New;
-        text-align: center;
-        font-weight: normal; }
-  
-    hr {
-        border: 0;
-        height: 1px;
-        width: 250px;
-        background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0)); }
-  
-    li {
-        margin: 0 auto 13px auto;
-        width: 60px;
-        padding: 5px 15px;
-        color: white;
-        background-color: black;
-        list-style: none; }
-  
-    button {
-        top: 0;
-        width: 200px;
-        height: 45px;
-        border-style: solid;
-        border-width: 4px;
-        border-color: black;
-        background-color: white;
-        position: fixed; }
-  
-    button:hover {
-        color: white;
-        background-color: black;
-        cursor: pointer; }
-  
-    #btnTestaPrimo {
-        right: 0;
-        margin: 15px 15px; }
-  
-    #btnHome {
-        left: 0;
-        margin: 15px 15px; }
-  
-    #btnImprimePrimo {
-        right: 0;
-        margin: 75px 15px; }
-  
-    #home img {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        margin-top: -115px;
-        margin-left: -130px; }
-  
-    #github {
-        font-weight: bold;
-        text-decoration: none;
-        bottom: 15px;
-        right: 25px;
-        position: fixed; }
-  
-    #github:hover {
-        text-decoration: underline; }
-  </style>
+        hr {
+            border: 0;
+            height: 1px;
+            width: 250px;
+            background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0)); }
+        
+        li {
+            margin: 0 auto 13px auto;
+            width: 60px;
+            padding: 5px 15px;
+            color: white;
+            background-color: black;
+            list-style: none; }
+
+        button {
+            top: 0;
+            width: 200px;
+            height: 45px;
+            border-style: solid;
+            border-width: 4px;
+            border-color: black;
+            background-color: white;
+            position: fixed; }
+        
+        button:hover {
+            color: white;
+            background-color: black;
+            cursor: pointer; }
+
+        #btnHome {
+            left: 0;
+            margin: 15px 15px; }
+
+        #btnTestaPrimo {
+            right: 0;
+            margin: 15px 15px; }
+
+        #btnImprimePrimosAte {
+            right: 0;
+            margin: 75px 15px; }
+
+        #btnImprimeXPrimos {
+            right: 0;
+            margin: 135px 15px; }
+        
+        #home img {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin-top: -115px;
+            margin-left: -130px; }
+        
+        #github {
+            font-weight: bold;
+            text-decoration: none;
+            bottom: 15px;
+            right: 25px;
+            position: fixed; }
+        
+        #github:hover {
+            text-decoration: underline; }
+    </style>
 </head>
 
 <body>
-  <div id="home">
-    <img id="logo-preto" src="_img/logo-preto.png">
-  </div>
+    <div id="home">
+        <img id="logo-preto" src="_img/logo-preto.png">
+    </div>
 
-  <ul id="listaPrimos"></ul>
+    <ul id="listaPrimos"></ul>
 
-  <button onclick='location.href=http://www.groweer.com' id="btnHome">Home</button>
-  <button onclick='acionaBtnTestaPrimo()' id="btnTestaPrimo">Testar número primo</button>
-  <button onclick='acionaBtnImprimePrimos()' id="btnImprimePrimo">Mostrar primos até...</button>
+    <button onclick='location.href=http://www.groweer.com' id="btnHome">Home</button>
+    <button onclick='btnTestaPrimo()' id="btnTestaPrimo">Testar número primo</button>
+    <button onclick='btnImprimePrimosAte()' id="btnImprimePrimosAte">Mostrar primos até...</button>
+    <button onclick='btnImprimeXPrimos()' id="btnImprimeXPrimos">Mostrar X primos</button>
 
-  <a href="https://github.com/Catchola/prime-numbers" target="_blank" id="github">GitHub</a>
+    <a href="https://github.com/Catchola/prime-numbers/" target="_blank" id="github">GitHub</a>
 
 <script type=text/javascript>
-  var primos = [2, 3, 5, 7];
-  var listaPrimos = document.querySelector("#listaPrimos");
+    var primos = [2, 3, 5, 7];
+    var listaPrimos = document.querySelector("#listaPrimos");
 
-  function ultimoDaLista () {
-    return primos[primos.length - 1];
-  }
-
-  function inclusoNaLista (numEmTeste)
-  {
-  	for (var posicao = 0; posicao < (primos.length); posicao++)
-  		if (primos[posicao] == numEmTeste)
-        return true;
-
-    return false;
-  }
-
-  function percorreLista (numEmTeste)
-  {
-  	for (var posicao = 0; posicao < (primos.length); posicao++)
-  		if (numEmTeste % primos[posicao] == 0)
-  			return false;
-
-  	return true;
-  }
-
-  function adicionaNaLista (numEmTeste)
-  {
-  	for (numAtual = (ultimoDaLista() + 2); numAtual <= numEmTeste; numAtual += 2)
-  		if ( percorreLista(numAtual) )
-  			primos.push(numAtual);
-  }
-
-  function testaPrimo (numEmTeste)
-  {
-    if ( numEmTeste < ultimoDaLista() ) {
-      if ( inclusoNaLista(numEmTeste) )
-        alert("É primo.");
-      else
-        alert("Não é primo.");
+    function ultimoDaLista () {
+    	return primos[primos.length - 1];
     }
 
-    else {
-      adicionaNaLista (numEmTeste);
+    function inclusoNaLista (numEmTeste)
+    {
+    	for (var posicao = 0; posicao < (primos.length); posicao++)
+    		if (primos[posicao] == numEmTeste)
+                return true;
 
-      if ( numEmTeste == ultimoDaLista() )
-        alert("É primo.");
-      else
-        alert("Não é primo.");
+        return false;
     }
-  }
 
-  function imprimir (numero)
-  {
-  	var novoPrimo = "<li>" + numero + "</li>" + "<hr>"
-	  listaPrimos.innerHTML += novoPrimo;
-  }
+    function percorreLista (numEmTeste)
+    {
+    	for (var posicao = 0; posicao < (primos.length); posicao++)
+    		if (numEmTeste % primos[posicao] == 0)
+    			return false;
 
-  function imprimePrimosAte (numLimite)
-  {
-    listaPrimos.innerHTML = ""; //Limpar lista
-    adicionaNaLista (numLimite);
+    	return true;
+    }
 
-  	for (var posicao = 0; posicao < (primos.length); posicao++) {
-  		if (primos[posicao] <= numLimite)
-  			imprimir( primos[posicao] );
-  		else
-  			break;
-  	}
-  }
+    function adicionaNaLista (numEmTeste)
+    {
+    	for (numAtual = (ultimoDaLista() + 2); numAtual <= numEmTeste; numAtual += 2)
+    		if ( percorreLista(numAtual) )
+    			primos.push(numAtual);
+    }
 
-  function ImprimeXPrimos (numLimite)
-  {
-  	
-  }
+    function testaPrimo (numEmTeste)
+    {
+        if ( numEmTeste < ultimoDaLista() ) {
+            if ( inclusoNaLista(numEmTeste) )
+                alert("É primo.");
+            else
+                alert("Não é primo.");
+        }
 
-  function acionaBtnTestaPrimo()
-  {
-    testaPrimo ( (prompt("Digite um número: ")) );
-  }
+        else {
+            adicionaNaLista (numEmTeste);
 
-  function acionaBtnImprimePrimos()
-  {
-    var numLimite = parseInt(prompt("Até que número gostaria de imprimir?"));
+            if ( numEmTeste == ultimoDaLista() )
+                alert("É primo.");
+            else
+                alert("Não é primo.");
+        }
+    }
 
-    var imagem = document.querySelector("#logo-preto");
-    if (imagem)
-        imagem.remove();
+    function imprimir (numero)
+    {
+    	var novoPrimo = "<li>" + numero + "</li>" + "<hr>"
+		listaPrimos.innerHTML += novoPrimo;
+    }
 
-    imprimePrimosAte(numLimite);
-  }
+    function imprimePrimosAte (numLimite)
+    {
+        listaPrimos.innerHTML = ""; //Limpar lista
+        adicionaNaLista (numLimite);
+
+    	for (var posicao = 0; posicao < (primos.length); posicao++) {
+    		if (primos[posicao] <= numLimite)
+    			imprimir( primos[posicao] );
+    		else
+    			break;
+    	}
+    }
+
+    function btnTestaPrimo ()
+    {
+        testaPrimo ( (prompt("Digite um número: ")) );
+    }
+
+    function btnImprimePrimosAte ()
+    {
+        var numLimite = parseInt(prompt("Até que número gostaria de imprimir?"));
+
+        var imagem = document.querySelector("#logo-preto");
+        if (imagem)
+            imagem.remove();
+
+        imprimePrimosAte(numLimite);
+    }
+
+    function btnImprimeXPrimos ()
+    {
+        var numLimite = parseInt(prompt("Quantos primos gostaria de imprimir?"));
+
+        var imagem = document.querySelector("#logo-preto");
+        if (imagem)
+            imagem.remove();
+
+        if ( (primos.length) >= numLimite) {
+            imprimePrimosAte( primos[numLimite - 1] );
+        }
+        else {
+            var numCrescente = 11;
+            while ( (primos.length) != numLimite ) {
+                adicionaNaLista (numCrescente);
+                numCrescente += 2;
+            }
+            imprimePrimosAte( ultimoDaLista() );
+        }
+    }
+
 </script>
 
 </body>
